@@ -10,6 +10,8 @@
 package com.example.jordan.jmmarketapp;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,16 +26,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     Button btnLogin;
     EditText etUsername,etPassword;
     TextView tvRegisterLink,tvErrorLabel;
-    String user = "jordan";
-    String pass = "123";
-    // Fake hard coded account temporary, future accounts connected to home server.
-    //getter's in order to pass information to MainActivity.
-    public String getUser(){
-        return user;
-    }
-    public String getPass(){
-        return pass;
-    }
+    String username,pass;
+    DatabaseInfo dbmanager = new DatabaseInfo(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +47,19 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        username = etUsername.getText().toString();
+        pass = etPassword.getText().toString();
+        String validPass = dbmanager.searchUsersPassword(username);
+        String validUser = dbmanager.searchValidUser(username);
         switch(v.getId()){
             case R.id.btnLogin:
-                if(etUsername.getText().toString().equals(user) && etPassword.getText().toString().equals(pass)){
+                if(username.equals(validUser) && pass.equals(validPass)){
+
                     tvErrorLabel.setText("Logging in...");
                     Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(this,MainActivity.class));
-                }else if(etUsername.getText().toString().equals(user) && !etPassword.getText().toString().equals(pass)){
+
+                }else if(username.equals(validUser) && !pass.equals(pass)){
                     tvErrorLabel.setText("Password is incorrect.");
                 }else{
                     tvErrorLabel.setText("Username is incorrect or doesn't exist.");
