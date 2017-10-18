@@ -6,6 +6,8 @@
    - Sept 25th, 1 Hour(s), - Getting comfortable with Android Studio.
    - Sept 26th, 2 Hour(s), - Login, Register, MainActivity
    - Sept 28th, 1 Hour(s), - Hard coded account, Error catch, Assignment 1 submission.
+
+   *Started uploading to Github, not keeping time logs here anymore.*
  */
 package com.example.jordan.jmmarketapp;
 
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogout;
     EditText etName,etEmail,etUsername;
     String username,pass,email;
+    DatabaseInfo dbmanager = new DatabaseInfo(this);
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

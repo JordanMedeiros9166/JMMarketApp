@@ -6,6 +6,7 @@
    - Sept 25th, 1 Hour(s), - Getting comfortable with Android Studio.
    - Sept 26th, 2 Hour(s), - Login, Register, MainActivity
    - Sept 28th, 1 Hour(s), - Hard coded account, Error catch, Assignment 1 submission.
+   *Started uploading to Github, not keeping time logs here anymore.*
  */
 package com.example.jordan.jmmarketapp;
 
@@ -24,7 +25,7 @@ import android.widget.Toast;
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
     DatabaseInfo dbmanager = new DatabaseInfo(this);
-    Button btnRegister;
+    Button btnRegister, btnCancel;
     EditText etEmail,etUsername,etPassword;
     TextView tvErrorLabel;
     String username,pass,email;
@@ -39,8 +40,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         etPassword = (EditText) findViewById(R.id.etPassword);
         tvErrorLabel = (TextView)findViewById(R.id.tvErrorLabel);
         btnRegister = (Button) findViewById(R.id.btnRegister);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
 
         btnRegister.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
     }
 
     /*  Register:
@@ -54,23 +57,24 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         switch(v.getId()){
             case R.id.btnRegister:
-                if(etUsername.getText().equals("")){
+                if(username.length() < 1 ){
                     tvErrorLabel.setText("Please enter a username.");
-                }else if(etPassword.getText().equals("")|| etPassword.getText().length() < 3){
+                }else if(pass.length() < 3){
                     tvErrorLabel.setText("Please enter a valid password longer then 3 characters.");
-                }else if(etEmail.getText().equals("")){
+                }else if(email.length() < 1){
                     tvErrorLabel.setText("Please enter a email address.");
                 }else{
                     AccountInfo a = new AccountInfo();
                     a.setUsername(username);
                     a.setPass(pass);
                     a.setEmail(email);
-
-                    dbmanager.Insert(a);
-
+                    dbmanager.InsertAccount(a);
                     Toast.makeText(getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(this,Login.class));
                 }
+                break;
+            case R.id.btnCancel:
+                    startActivity(new Intent(this,Login.class));
                 break;
         }
     }
