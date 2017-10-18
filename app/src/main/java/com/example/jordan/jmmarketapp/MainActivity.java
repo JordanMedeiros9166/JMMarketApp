@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogout;
     EditText etName,etEmail,etUsername;
     String username,pass,email;
-
-    SQLiteDatabase myDB = openOrCreateDatabase("MarketDB", MODE_PRIVATE,null);
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

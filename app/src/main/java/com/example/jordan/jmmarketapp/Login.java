@@ -50,16 +50,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         username = etUsername.getText().toString();
         pass = etPassword.getText().toString();
         String validPass = dbmanager.searchUsersPassword(username);
-        String validUser = dbmanager.searchValidUser(username);
         switch(v.getId()){
             case R.id.btnLogin:
-                if(username.equals(validUser) && pass.equals(validPass)){
-
+                if(pass.equals(validPass)){
                     tvErrorLabel.setText("Logging in...");
                     Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
                     startActivity(new Intent(this,MainActivity.class));
-
-                }else if(username.equals(validUser) && !pass.equals(pass)){
+                }else if(!pass.equals(validPass)){
                     tvErrorLabel.setText("Password is incorrect.");
                 }else{
                     tvErrorLabel.setText("Username is incorrect or doesn't exist.");
