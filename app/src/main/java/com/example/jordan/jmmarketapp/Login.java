@@ -12,8 +12,6 @@
 package com.example.jordan.jmmarketapp;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,7 +27,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     EditText etUsername,etPassword;
     TextView tvRegisterLink,tvErrorLabel;
     String username,pass;
-    DatabaseInfo dbmanager = new DatabaseInfo(this);
+    DatabaseFactory dbmanager = new DatabaseFactory(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +50,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         username = etUsername.getText().toString();
         pass = etPassword.getText().toString();
         String validPass = dbmanager.searchUsersPassword(username);
+
         switch(v.getId()){
             case R.id.btnLogin:
                 if(pass.equals(validPass)){
                     tvErrorLabel.setText("Logging in...");
                     Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this,MainActivity.class));
+                    Intent mainIntent = new Intent(this,MainActivity.class);
+                    mainIntent.putExtra("user",username);
+                    startActivity(mainIntent);
+
                 }else if(!pass.equals(validPass)){
                     tvErrorLabel.setText("Password is incorrect.");
                 }else{

@@ -10,18 +10,18 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Created by Jordan on 10/18/2017.
  */
 
-public class DatabaseInfo extends SQLiteOpenHelper{
+public class DatabaseFactory extends SQLiteOpenHelper{
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "Market.db";
-    //Account info
+    //Account Table
     private static final String ACCOUNT_TABLE_NAME = "Accounts";
     private static final String ACCOUNT_COLUMN_ID = "id";
     private static final String ACCOUNT_COLUMN_USERNAME = "username";
     private static final String ACCOUNT_COLUMN_EMAIL = "email";
     private static final String ACCOUNT_COLUMN_PASSWORD = "pass";
 
-    //House info
+    //House Table
     private static final String HOUSE_TABLE_NAME = "Listings";
     private static final String HOUSE_COLUMN_ID = "id";
     private static final String HOUSE_COLUMN_TYPE = "type";
@@ -30,6 +30,14 @@ public class DatabaseInfo extends SQLiteOpenHelper{
     private static final String HOUSE_COLUMN_LOCATION = "location";
     private static final String HOUSE_COLUMN_SIZE = "size";
     private static final String HOUSE_COLUMN_PRICE = "price";
+
+    //Friend Table
+    private static final String FRIEND_TABLE_NAME = "Friends";
+    private static final String FRIEND_COLUMN_ID = "id";
+    private static final String FRIEND_COLUMN_USERNAME = "userid";
+    private static final String FRIEND_COLUMN_BUDDYNAME = "buddyid";
+    private static final String FRIEND_COLUMN_PENDING = "pending";
+
 
     SQLiteDatabase db;
     private static final String ACCOUNT_TABLE_CREATE= "CREATE TABLE Accounts (id INTEGER PRIMARY KEY," +
@@ -44,14 +52,19 @@ public class DatabaseInfo extends SQLiteOpenHelper{
             "location TEXT," +
             "size TEXT," +
             "price TEXT);";
+    private static final String FRIEND_TABLE_CREATE= "CREATE TABLE Friends (id INTEGER PRIMARY KEY," +
+            "userid TEXT," +
+            "buddyid TEXT," +
+            "pending TEXT);";
 
-    public DatabaseInfo(Context context){
+    public DatabaseFactory(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
     @Override
     public void onCreate(SQLiteDatabase db){
         db.execSQL(ACCOUNT_TABLE_CREATE);
         db.execSQL(HOUSE_TABLE_CREATE);
+        db.execSQL(FRIEND_TABLE_CREATE);
         this.db = db;
     }
 
@@ -84,19 +97,38 @@ public class DatabaseInfo extends SQLiteOpenHelper{
                 u = cursor.getString(0);
                 if(u.equals(username)){
                     p = cursor.getString(1);
+
                     break;
                 }
             }while (cursor.moveToNext());
         }
         return p;
     }
+    public String duplicateUsername(String username){
+        db = this.getReadableDatabase();
+        String query = "SELECT username FROM " + ACCOUNT_TABLE_NAME;
+        Cursor cursor = db.rawQuery(query, null);
+        String u = "";
+        if(cursor.moveToFirst()){
+            do{
+                u = cursor.getString(0);
+                if(u.equals(username)){
+                    u="Duplicate";
+                    break;
+                }
+            }while (cursor.moveToNext());
+        }
+        return u;
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion){
         String query = "DROP TABLE IF EXISTS " + ACCOUNT_TABLE_NAME;
         String query1 = "DROP TABLE IF EXISTS " + HOUSE_TABLE_NAME;
+        String query2 = "DROP TABLE IF EXISTS " + FRIEND_TABLE_NAME;
         db.execSQL(query);
         db.execSQL(query1);
+        db.execSQL(query2);
         this.onCreate(db);
     }
 

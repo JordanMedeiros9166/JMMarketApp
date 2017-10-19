@@ -11,9 +11,6 @@
 package com.example.jordan.jmmarketapp;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -24,7 +21,7 @@ import android.widget.Toast;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
-    DatabaseInfo dbmanager = new DatabaseInfo(this);
+    DatabaseFactory dbmanager = new DatabaseFactory(this);
     Button btnRegister, btnCancel;
     EditText etEmail,etUsername,etPassword;
     TextView tvErrorLabel;
@@ -64,13 +61,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }else if(email.length() < 1){
                     tvErrorLabel.setText("Please enter a email address.");
                 }else{
-                    AccountInfo a = new AccountInfo();
-                    a.setUsername(username);
-                    a.setPass(pass);
-                    a.setEmail(email);
-                    dbmanager.InsertAccount(a);
-                    Toast.makeText(getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this,Login.class));
+                    if(dbmanager.duplicateUsername(username).equals("Duplicate")){
+                        tvErrorLabel.setText("That username already exists!");
+                    }else{
+                        AccountInfo a = new AccountInfo();
+                        a.setUsername(username);
+                        a.setPass(pass);
+                        a.setEmail(email);
+                        dbmanager.InsertAccount(a);
+                        Toast.makeText(getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(this,Login.class));
+                    }
                 }
                 break;
             case R.id.btnCancel:
