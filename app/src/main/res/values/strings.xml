@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">JMMarketApp</string>
     <string name="Menu">menu</string>
+
+    <string name="typePrompt">Select a type</string>
+    <string-array name="typeArray">
+        <item>Any</item>
+        <item>House</item>
+        <item>TownHouse</item>
+        <item>Duplex</item>
+        <item>Triplex</item>
+        <item>Fourplex</item>
+        <item>Apartment</item>
+    </string-array>
 </resources>

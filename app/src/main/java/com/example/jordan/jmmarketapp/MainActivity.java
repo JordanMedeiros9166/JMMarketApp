@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.drawermenu, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case R.id.navAddListing:
+                startActivity(new Intent(this,AddListing.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
     @Override
     public void onClick(View v){

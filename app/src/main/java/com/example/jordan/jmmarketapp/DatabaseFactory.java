@@ -85,6 +85,26 @@ public class DatabaseFactory extends SQLiteOpenHelper{
         db.insert(ACCOUNT_TABLE_NAME,null,values);
         db.close();
     }
+    public void InsertHouse(HouseInfo h){
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        String query = "SELECT * FROM Listings";
+        Cursor cursor = db.rawQuery(query,null);
+        int cnt = cursor.getCount();
+
+        values.put(HOUSE_COLUMN_ID,cnt);
+        values.put(HOUSE_COLUMN_TYPE, h.getType());
+        values.put(HOUSE_COLUMN_BEDS, h.getBeds());
+        values.put(HOUSE_COLUMN_BATHS, h.getBaths());
+        values.put(HOUSE_COLUMN_LOCATION, h.getLocation());
+        values.put(HOUSE_COLUMN_SIZE, h.getSize());
+        values.put(HOUSE_COLUMN_PRICE, h.getPrice());
+
+        db.insert(HOUSE_TABLE_NAME,null,values);
+        db.close();
+    }
 
     public String searchUsersPassword(String username){
         db = this.getReadableDatabase();
