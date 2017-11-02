@@ -34,6 +34,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
@@ -53,17 +54,21 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
         switch(v.getId()){
             case R.id.btnLogin:
-                if(pass.equals(validPass)){
-                    tvErrorLabel.setText("Logging in...");
-                    Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
-                    Intent mainIntent = new Intent(this,MainActivity.class);
-                    mainIntent.putExtra("user",username);
-                    startActivity(mainIntent);
+                if(username.equals("")){
+                    tvErrorLabel.setText("Invalid username.");
+                }else {
+                    if (pass.equals(validPass)) {
+                        tvErrorLabel.setText("Logging in...");
+                        Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
+                        Intent mainIntent = new Intent(this, MainActivity.class);
+                        mainIntent.putExtra("user", username);
+                        startActivity(mainIntent);
 
-                }else if(!pass.equals(validPass)){
-                    tvErrorLabel.setText("Password is incorrect.");
-                }else{
-                    tvErrorLabel.setText("Username is incorrect or doesn't exist.");
+                    } else if (!pass.equals(validPass)) {
+                        tvErrorLabel.setText("Password is incorrect.");
+                    } else {
+                        tvErrorLabel.setText("Username is incorrect or doesn't exist.");
+                    }
                 }
                 break;
             case R.id.tvRegisterLink:

@@ -1,5 +1,6 @@
 package com.example.jordan.jmmarketapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddListing extends AppCompatActivity {
+public class AddListing extends AppCompatActivity implements View.OnClickListener{
 
     Button btnCancel, btnAdd;
     EditText etLocation, etSize, etPrice, etBeds, etBaths;
@@ -30,6 +31,9 @@ public class AddListing extends AppCompatActivity {
         spType = (Spinner) findViewById(R.id.spType);
 
         addListenerOnSpinnerItemSelect();
+        btnCancel.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
+
 
     }
 
@@ -43,8 +47,17 @@ public class AddListing extends AppCompatActivity {
 
         switch(v.getId()){
 
+            case R.id.btnAdd:
+                //add to listing table
+                break;
+            case R.id.btnCancel:
+
+                finish();
+                break;
             case R.id.spType:
                 Toast.makeText(AddListing.this,String.valueOf(spType.getSelectedItem()),Toast.LENGTH_SHORT);
+
+
 
         }
 

@@ -55,8 +55,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
+            case R.id.navAccount:
+                //make profile page
+                return true;
+            case R.id.navMesseges:
+                //make messeges page
+                return true;
+            case R.id.navBrowse:
+                //show listings page
+                return true;
+            case R.id.navFriends:
+                //show friends list
+                return true;
             case R.id.navAddListing:
                 startActivity(new Intent(this,AddListing.class));
+                return true;
+            case R.id.navLogout:
+                startActivity(new Intent(this,Login.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
