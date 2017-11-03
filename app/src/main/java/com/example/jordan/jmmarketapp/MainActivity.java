@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogout;
     EditText etUsername;
     TextView tvWelcome;
+    String passUser = "";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLogout = (Button) findViewById(R.id.btnLogout);
         tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
-
+        passUser = user;
         tvWelcome.setText("Welcome, "+ user);
         btnLogout.setOnClickListener(this);
 
@@ -63,12 +65,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.navBrowse:
                 //show listings page
+
                 return true;
             case R.id.navFriends:
                 //show friends list
                 return true;
             case R.id.navAddListing:
-                startActivity(new Intent(this,AddListing.class));
+                Intent addIntent = new Intent(this, AddListing.class);
+                addIntent.putExtra("user", passUser);
+                startActivity(addIntent);
                 return true;
             case R.id.navLogout:
                 startActivity(new Intent(this,Login.class));

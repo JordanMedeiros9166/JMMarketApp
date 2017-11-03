@@ -5,9 +5,14 @@ package com.example.jordan.jmmarketapp;
  */
 
 public class HouseInfo {
-    String type,beds, baths, location, size;
-    Integer price;
+    String user,type,beds, baths, location, size, price;
 
+    public void setUser(String user){
+        this.user = user;
+    }
+    public String getUser(){
+        return this.user;
+    }
     public void setType(String type){
         this.type = type;
     }
@@ -38,10 +43,10 @@ public class HouseInfo {
     public String getSize(){
         return this.size;
     }
-    public void setPrice(int price){
+    public void setPrice(String price){
         this.price=price;
     }
-    public Integer getPrice(){
+    public String getPrice(){
         return this.price;
     }
 

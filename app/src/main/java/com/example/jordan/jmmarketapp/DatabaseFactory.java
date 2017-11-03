@@ -8,6 +8,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by Jordan on 10/18/2017.
+ * In order to extract db from api 25
+ * Terminal:
+ * - adb shell is probably $
+ * - exit
+ * - adb root
+ * - adb shell should be #
  */
 
 public class DatabaseFactory extends SQLiteOpenHelper{
@@ -24,6 +30,7 @@ public class DatabaseFactory extends SQLiteOpenHelper{
     //House Table
     private static final String HOUSE_TABLE_NAME = "Listings";
     private static final String HOUSE_COLUMN_ID = "id";
+    private static final String HOUSE_COLUMN_USERNAME = "username";
     private static final String HOUSE_COLUMN_TYPE = "type";
     private static final String HOUSE_COLUMN_BEDS = "beds";
     private static final String HOUSE_COLUMN_BATHS = "baths";
@@ -46,6 +53,7 @@ public class DatabaseFactory extends SQLiteOpenHelper{
             "pass TEXT);";
 
     private static final String HOUSE_TABLE_CREATE= "CREATE TABLE Listings (id INTEGER PRIMARY KEY," +
+            "username TEXT," +
             "type TEXT," +
             "beds TEXT," +
             "baths TEXT," +
@@ -87,7 +95,6 @@ public class DatabaseFactory extends SQLiteOpenHelper{
     }
     public void InsertHouse(HouseInfo h){
         db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
 
         String query = "SELECT * FROM Listings";
@@ -95,6 +102,7 @@ public class DatabaseFactory extends SQLiteOpenHelper{
         int cnt = cursor.getCount();
 
         values.put(HOUSE_COLUMN_ID,cnt);
+        values.put(HOUSE_COLUMN_USERNAME,h.getUser());
         values.put(HOUSE_COLUMN_TYPE, h.getType());
         values.put(HOUSE_COLUMN_BEDS, h.getBeds());
         values.put(HOUSE_COLUMN_BATHS, h.getBaths());
@@ -106,6 +114,23 @@ public class DatabaseFactory extends SQLiteOpenHelper{
         db.close();
     }
 
+    public void InsertFriend(FriendInfo f){
+        db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+
+        String query = "SELECT * FROM Friends";
+        Cursor cursor = db.rawQuery(query,null);
+        int cnt = cursor.getCount();
+
+        values.put(FRIEND_COLUMN_ID,cnt);
+        values.put(FRIEND_COLUMN_USERNAME,f.getUser());
+        values.put(FRIEND_COLUMN_BUDDYNAME,f.getFriend());
+        values.put(FRIEND_COLUMN_PENDING,f.getPending());
+
+        db.insert(FRIEND_TABLE_NAME,null,values);
+        db.close();
+    }
     public String searchUsersPassword(String username){
         db = this.getReadableDatabase();
         String query = "SELECT username, pass FROM " + ACCOUNT_TABLE_NAME;
