@@ -11,26 +11,31 @@
 package com.example.jordan.jmmarketapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
-    DatabaseFactory dbmanager = new DatabaseFactory(this);
+
     Button btnRegister, btnCancel;
     EditText etEmail,etUsername,etPassword;
     TextView tvErrorLabel;
     String username,pass,email;
-
+    int count;
+    private AppDatabase db;
+    private Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         etEmail = (EditText) findViewById(R.id.etEmail);
         etUsername = (EditText) findViewById(R.id.etUsername);
@@ -61,16 +66,26 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }else if(email.length() < 1){
                     tvErrorLabel.setText("Please enter a email address.");
                 }else{
-                    if(dbmanager.duplicateUsername(username).equals("Duplicate")){
-                        tvErrorLabel.setText("That username already exists!");
+                        List<Account> accounts = db.accountDao().getAllAccount();
+                        List<Account> dupeCheck = db.accountDao().findAccountByUsername(username);
+                    if (dupeCheck.size() > 0){
+                        tvErrorLabel.setText("Name in use already, try again");
                     }else{
-                        AccountInfo a = new AccountInfo();
-                        a.setUsername(username);
-                        a.setPass(pass);
-                        a.setEmail(email);
-                        dbmanager.InsertAccount(a);
-                        Toast.makeText(getApplicationContext(), "Successfully Registered!", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(this,Login.class));
+                        if (accounts.size() == 0 ){
+                            count = 1;
+                            db.accountDao().addAccount(new Account(count,username,pass,email));
+                            acc = db.accountDao().getAllAccount().get(count);
+                            Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(this,Login.class));
+                        }else{
+                            count = accounts.size() +1;
+                            int curr = count -1;
+                            db.accountDao().addAccount(new Account(count,username,pass,email));
+                            acc = db.accountDao().getAllAccount().get(curr);
+                            Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(this,Login.class));
+                        }
+                        // Toast.makeText(this, String.valueOf(acc), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

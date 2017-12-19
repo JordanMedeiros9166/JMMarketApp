@@ -11,6 +11,7 @@
  */
 package com.example.jordan.jmmarketapp;
 
+import android.arch.persistence.room.Room;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText etUsername;
     TextView tvWelcome;
     String passUser = "";
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +73,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //show friends list
                 return true;
             case R.id.navAddListing:
-                Intent addIntent = new Intent(this, AddListing.class);
-                addIntent.putExtra("user", passUser);
-                startActivity(addIntent);
+               // Intent addIntent = new Intent(this, AddListing.class);
+                //addIntent.putExtra("user", passUser);
+                //startActivity(addIntent);
                 return true;
             case R.id.navLogout:
                 startActivity(new Intent(this,Login.class));
