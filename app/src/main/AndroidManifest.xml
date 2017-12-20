@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
+        <activity android:name=".AddListing" />
         <activity android:name=".ShowListings"></activity>
     </application>
 

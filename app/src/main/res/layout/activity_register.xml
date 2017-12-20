@@ -76,5 +76,12 @@
         android:text=""
         android:textColor="#FF0000"/>
 
+    <Button
+        android:id="@+id/btnClearDB"
+        android:text="Delete DB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
 </LinearLayout>
 </ScrollView>

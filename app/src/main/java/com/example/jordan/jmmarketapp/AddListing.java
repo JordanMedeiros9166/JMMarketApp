@@ -27,15 +27,21 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     EditText etLocation, etSize, etPrice, etBeds, etBaths;
     Spinner spType;
     String type,beds,baths,location,size,price;
-    String currUser ="";
+    String currUser,currPass =" ";
+    private AppDatabase db;
+    //private House house;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
+       db = AppDatabase.getAppDatabase(getApplicationContext());
 
         Intent intent = getIntent();
-        currUser = intent.getStringExtra("user");
+        String user = intent.getStringExtra("user");
+        String pass = intent.getStringExtra("pass");
+        currPass = pass;
+        currUser = user;
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         btnCancel = (Button) findViewById(R.id.btnCancel);
@@ -68,7 +74,9 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         switch(v.getId()){
 
             case R.id.btnAdd:
-                //add to listing table
+                //add to listing tablegag
+                //db.houseDao().addHouse(new House(currUser,type,beds,baths,location,size,price));
+
 
                 Toast.makeText(getApplicationContext(), "Successfully listed!", Toast.LENGTH_LONG).show();
                 finish();

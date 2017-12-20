@@ -31,12 +31,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     int count;
     private AppDatabase db;
     private Account acc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         db = AppDatabase.getAppDatabase(getApplicationContext());
-
         etEmail = (EditText) findViewById(R.id.etEmail);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -66,12 +66,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }else if(email.length() < 1){
                     tvErrorLabel.setText("Please enter a email address.");
                 }else{
-                        List<Account> accounts = db.accountDao().getAllAccount();
+
                         List<Account> dupeCheck = db.accountDao().findAccountByUsername(username);
                     if (dupeCheck.size() > 0){
                         tvErrorLabel.setText("Name in use already, try again");
                     }else{
-                        if (accounts.size() == 0 ){
+
+                        List<Account> accounts = db.accountDao().getAllAccount();
+                        if (accounts.size() == 0|| accounts.isEmpty() ){
                             count = 1;
                             db.accountDao().addAccount(new Account(count,username,pass,email));
                             acc = db.accountDao().getAllAccount().get(count);
@@ -92,6 +94,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             case R.id.btnCancel:
                     startActivity(new Intent(this,Login.class));
                 break;
+            case R.id.btnClearDB:
+                    AppDatabase.destroyInstance();
         }
     }
 }

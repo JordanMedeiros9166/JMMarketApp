@@ -12,6 +12,7 @@
 package com.example.jordan.jmmarketapp;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,23 +21,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
     Button btnLogin;
     EditText etUsername,etPassword;
     TextView tvRegisterLink,tvErrorLabel;
-    String username,pass;
+    String username,pass,key;
+    Cursor cursor = null;
     private AppDatabase db;
     private Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-
-        AppDatabase.getAppDatabase(getApplicationContext());
-
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -46,37 +47,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
 
         btnLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         username = etUsername.getText().toString();
         pass = etPassword.getText().toString();
-      //  String validPass = dbmanager.searchUsersPassword(username);
-
         switch(v.getId()){
             case R.id.btnLogin:
                 if(username.equals("")){
                     tvErrorLabel.setText("Invalid username.");
                 }else {
-                    if (db.accountDao().findAccountByUsername(username).equals(true)){
-                        db.accountDao().accountInfoMatch(username,pass);
-                        Toast.makeText(getApplicationContext(), "Successfully logged in!", Toast.LENGTH_LONG).show();
+                    List<Account> accountExist = db.accountDao().accountInfoMatch(username,pass);
+
+                    if (accountExist.size()> 0){
+                        Toast.makeText(getApplicationContext(), "Successfully logged in!" , Toast.LENGTH_LONG).show();
+
                         Intent mainIntent = new Intent(this, MainActivity.class);
                         mainIntent.putExtra("user", username);
+                        mainIntent.putExtra("pass",pass);
                         startActivity(mainIntent);
                     }else{
-                        tvErrorLabel.setText("Logging in...");
-                        Toast.makeText(getApplicationContext(), "Something wrong happened", Toast.LENGTH_LONG).show();
-                       // Intent mainIntent = new Intent(this, MainActivity.class);
-                      //  mainIntent.putExtra("user", username);
-                       // startActivity(mainIntent);
+                        tvErrorLabel.setText("Check if username or password is incorrect.");
+                        Toast.makeText(getApplicationContext(), "Check if username or password is incorrect.", Toast.LENGTH_LONG).show();
                     }
-
-
-
-
                 }
                 break;
             case R.id.tvRegisterLink:

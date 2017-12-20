@@ -1,5 +1,6 @@
 package com.example.jordan.jmmarketapp;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
@@ -11,8 +12,11 @@ import android.arch.persistence.room.PrimaryKey;
  class Account {
     @PrimaryKey
     private int id;
+    @ColumnInfo(name = "username")
     private String username;
+    @ColumnInfo(name = "password")
     private String password;
+    @ColumnInfo(name = "email")
     private String email;
 
   public Account(int id, String username, String password, String email){
@@ -21,6 +25,7 @@ import android.arch.persistence.room.PrimaryKey;
       this.setPassword(password);
       this.setEmail(email);
   }
+
 
 
     public int getId() {
@@ -54,4 +59,6 @@ import android.arch.persistence.room.PrimaryKey;
     public void setEmail(String email) {
         this.email = email;
     }
+
+
 }

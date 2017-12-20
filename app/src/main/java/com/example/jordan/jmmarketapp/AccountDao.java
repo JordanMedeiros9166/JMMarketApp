@@ -17,6 +17,10 @@ import java.util.List;
 @Dao
 public interface AccountDao {
 
+    /**
+     * Account
+     * @param account
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addAccount(Account account);
 
@@ -29,13 +33,14 @@ public interface AccountDao {
     @Query("SELECT * FROM account WHERE username LIKE :username")
     List<Account> findAccountByUsername(String username);
 
-    @Query("SELECT * FROM account WHERE username LIKE :search AND password LIKE :pass")
-    List<Account> accountInfoMatch(String search,String pass);
+    @Query("SELECT * FROM account WHERE username LIKE :username AND password LIKE :pass")
+    List<Account> accountInfoMatch(String username,String pass);
+
 
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void updateAccount(Account account);
 
     @Delete
-    void delete(Account accounts);
+    void deleteAccount(Account account);
 }

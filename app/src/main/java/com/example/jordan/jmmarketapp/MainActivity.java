@@ -11,10 +11,9 @@
  */
 package com.example.jordan.jmmarketapp;
 
-import android.arch.persistence.room.Room;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,8 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogout;
     EditText etUsername;
     TextView tvWelcome;
-    String passUser = "";
-
+    String passUser,passPass = " ";
+    private AppDatabase db;
+    private Account acc;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +38,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");
+        String pass = intent.getStringExtra("pass");
 
 
         etUsername = (EditText) findViewById(R.id.etUsername);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         tvWelcome = (TextView) findViewById(R.id.tvWelcome);
 
+        passPass = pass;
         passUser = user;
-        tvWelcome.setText("Welcome, "+ user);
+        tvWelcome.setText("Welcome, "+ user + " " + pass);
+        //db.accountDao().userLoggedInSwitch(user);
         btnLogout.setOnClickListener(this);
 
     }
@@ -67,15 +70,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.navBrowse:
                 //show listings page
-
+                startActivity(new Intent(this, ShowListings.class));
                 return true;
             case R.id.navFriends:
                 //show friends list
                 return true;
             case R.id.navAddListing:
-               // Intent addIntent = new Intent(this, AddListing.class);
-                //addIntent.putExtra("user", passUser);
-                //startActivity(addIntent);
+                Intent addIntent = new Intent(this, AddListing.class);
+                addIntent.putExtra("user", passUser);
+                addIntent.putExtra("pass", passPass);
+                startActivity(addIntent);
                 return true;
             case R.id.navLogout:
                 startActivity(new Intent(this,Login.class));
