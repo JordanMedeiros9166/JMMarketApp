@@ -16,10 +16,13 @@ import java.util.List;
 public interface HouseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void addHouse(House house);
+
     @Query("SELECT * FROM house")
     List<House> getAllHouse();
-    @Query("SELECT * FROM house WHERE id = :userid")
+
+    @Query("SELECT * FROM house WHERE userId = :userid")
     List<House> getHouse(long userid);
+
     @Delete
     void deleteHouse(House house);
 }

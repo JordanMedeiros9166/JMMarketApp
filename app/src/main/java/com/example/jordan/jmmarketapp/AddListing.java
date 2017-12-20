@@ -29,7 +29,8 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     String type,beds,baths,location,size,price;
     String currUser,currPass =" ";
     private AppDatabase db;
-    //private House house;
+    private House house;
+    private Account acc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,8 +75,8 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         switch(v.getId()){
 
             case R.id.btnAdd:
-                //add to listing tablegag
-                //db.houseDao().addHouse(new House(currUser,type,beds,baths,location,size,price));
+                //add to listing tablegaggasg
+                db.houseDao().addHouse(new House(acc.getId(),currUser,type,beds,baths,location,size,price));
 
 
                 Toast.makeText(getApplicationContext(), "Successfully listed!", Toast.LENGTH_LONG).show();

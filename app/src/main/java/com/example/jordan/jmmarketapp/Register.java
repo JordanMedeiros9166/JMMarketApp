@@ -37,6 +37,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         db = AppDatabase.getAppDatabase(getApplicationContext());
+
         etEmail = (EditText) findViewById(R.id.etEmail);
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
@@ -78,16 +79,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                             db.accountDao().addAccount(new Account(count,username,pass,email));
                             acc = db.accountDao().getAllAccount().get(count);
                             Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(this,Login.class));
+                            finish();
                         }else{
                             count = accounts.size() +1;
                             int curr = count -1;
                             db.accountDao().addAccount(new Account(count,username,pass,email));
                             acc = db.accountDao().getAllAccount().get(curr);
                             Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(this,Login.class));
+
+                            finish();
                         }
-                        // Toast.makeText(this, String.valueOf(acc), Toast.LENGTH_SHORT).show();
                     }
                 }
                 break;

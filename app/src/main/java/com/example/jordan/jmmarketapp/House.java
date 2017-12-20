@@ -30,77 +30,39 @@ public class House {
     private String price;
 
     public House(long userId,String username,String type,String beds,String baths,String location,String size,String price){
-        this.setUserId(userId);
-        this.setUsername(username);
-        this.setType(type);
-        this.setBeds(beds);
-        this.setBaths(baths);
-        this.setLocation(location);
-        this.setSize(size);
-        this.setPrice(price);
+        this.userId = userId;
+        this.username = username;
+        this.type = type;
+        this.beds = beds;
+        this.baths = baths;
+        this.location = location;
+        this.size = size;
+        this.price = price;
     }
 
     public String getUsername() {
         return username;
     }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getType() {
         return type;
     }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getBeds() {
         return beds;
     }
-
-    public void setBeds(String beds) {
-        this.beds = beds;
-    }
-
     public String getBaths() {
         return baths;
     }
-
-    public void setBaths(String baths) {
-        this.baths = baths;
-    }
-
     public String getLocation() {
         return location;
     }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public String getSize() {
         return size;
     }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
     public String getPrice() {
         return price;
     }
-
-    public void setPrice(String price) {
-        this.price = price;
-    }
-
     public long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 }
