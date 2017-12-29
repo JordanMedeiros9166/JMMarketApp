@@ -11,10 +11,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "house",
         foreignKeys = {@ForeignKey(
-                            entity = Account.class,
-                            parentColumns = "id",
-                            childColumns = "userId",
-                            onDelete = ForeignKey.CASCADE
+                entity = Account.class,
+                parentColumns = "id",
+                childColumns = "userId",
+                onDelete = ForeignKey.CASCADE
         )},
         indices = { @Index(value = "id")})
 public class House {

@@ -20,8 +20,8 @@ public interface HouseDao {
     @Query("SELECT * FROM house")
     List<House> getAllHouse();
 
-    @Query("SELECT * FROM house WHERE userId = :userid")
-    List<House> getHouse(long userid);
+    @Query("SELECT * FROM house WHERE id = :id")
+    List<House> getHouse(long id);
 
     @Delete
     void deleteHouse(House house);

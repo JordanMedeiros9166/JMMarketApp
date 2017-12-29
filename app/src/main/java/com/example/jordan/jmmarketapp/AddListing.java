@@ -20,6 +20,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.util.List;
+
 public class AddListing extends AppCompatActivity implements View.OnClickListener{
 
 
@@ -29,8 +31,8 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     String type,beds,baths,location,size,price;
     String currUser,currPass =" ";
     private AppDatabase db;
+    int count;
     private House house;
-    private Account acc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +77,24 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
         switch(v.getId()){
 
             case R.id.btnAdd:
-                //add to listing tablegaggasg
-                db.houseDao().addHouse(new House(acc.getId(),currUser,type,beds,baths,location,size,price));
+                //add to listing table
+                List<House> houses = db.houseDao().getAllHouse();
+                if (houses.size() == 0|| houses.isEmpty() ){
+                    count = 1;
+                    db.houseDao().addHouse(new House(count,currUser,type,beds,baths,location,size,price));
+                    house = db.houseDao().getAllHouse().get(0);
+                    Toast.makeText(this, String.valueOf(house.getUserId()+ ", " + house.getUsername()), Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    count = houses.size() + 1;
+                    int curr = count -1;
+                    db.houseDao().addHouse(new House(count,currUser,type,beds,baths,location,size,price));
+                    house = db.houseDao().getAllHouse().get(curr);
+                    Toast.makeText(this, String.valueOf(house.getUserId()+ ", " + house.getUsername()), Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }
+              // db.houseDao().addHouse(new House(house.getUserId(),currUser,type,beds,baths,location,size,price));
 
 
                 Toast.makeText(getApplicationContext(), "Successfully listed!", Toast.LENGTH_LONG).show();
