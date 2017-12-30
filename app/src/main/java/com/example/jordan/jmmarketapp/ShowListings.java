@@ -9,18 +9,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ShowListings extends AppCompatActivity {
-    int count =0;
+
     ListView v;
     private AppDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = AppDatabase.getAppDatabase(getApplicationContext());
         setContentView(R.layout.activity_show_listings);
          v = (ListView) findViewById(R.id.listView1);
+
         fetchInfo();
     }
-
 
 
     public void fetchInfo(){

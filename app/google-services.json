@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "302358341864",
+    "firebase_url": "https://jmmarketapp.firebaseio.com",
+    "project_id": "jmmarketapp",
+    "storage_bucket": "jmmarketapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302358341864:android:d96eaa343cdaafac",
+        "android_client_info": {
+          "package_name": "com.example.jordan.jmmarketapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302358341864-hdup8m5krod04glrnoik5cq9fpdvcj3i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jordan.jmmarketapp",
+            "certificate_hash": "4b6ab60b13dd314a2f53da35948f0021fd36c26d"
+          }
+        },
+        {
+          "client_id": "302358341864-2itfei4ai6o5sv462pn9ukh9c9me8r6m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD-iBII18-qGHExmrzwUe9LntQdAOT15Pc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302358341864-2itfei4ai6o5sv462pn9ukh9c9me8r6m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
