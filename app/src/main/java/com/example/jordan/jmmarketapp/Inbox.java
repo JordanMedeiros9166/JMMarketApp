@@ -22,14 +22,12 @@ public class Inbox extends AppCompatActivity {
         db = AppDatabase.getAppDatabase(getApplicationContext());
         Intent intent = getIntent();
         currUser = intent.getStringExtra("user");
-        //test mail for user: jordan
-        db.mailDao().addMail(new Mail("john","jordan"," Hey buddy long time no see!"));
         tvError = (TextView) findViewById(R.id.tvError);
         inbox = (ListView) findViewById(R.id.listViewInbox);
 
+
             fetchInfo();
-
-
+        new UpdateInbox().execute();
     }
     public void fetchInfo(){
         List<Mail> m = db.mailDao().getMail(currUser);
