@@ -18,12 +18,15 @@ import android.arch.persistence.room.PrimaryKey;
     private String password;
     @ColumnInfo(name = "email")
     private String email;
+    @ColumnInfo(name = "token")
+    private String token;
 
-  public Account(int id, String username, String password, String email){
+  public Account(int id, String username, String password, String email, String token){
       this.setId(id);
       this.setUsername(username);
       this.setPassword(password);
       this.setEmail(email);
+      this.setToken(token);
   }
 
 
@@ -60,5 +63,8 @@ import android.arch.persistence.room.PrimaryKey;
         this.email = email;
     }
 
-
+    public String getToken(){ return token; }
+    public void setToken(String token) {
+        this.token = token;
+    }
 }

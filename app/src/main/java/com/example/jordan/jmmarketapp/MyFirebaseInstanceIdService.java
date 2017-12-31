@@ -22,6 +22,7 @@ public class MyFirebaseInstanceIdService extends FirebaseInstanceIdService {
        // sendRegistrationToServer(refreshedToken);
         storeToken(refreshedToken);
     }
+
     private void storeToken(String token){
         MyPrefManager.getInstance(getApplicationContext()).storeToken(token);
     }

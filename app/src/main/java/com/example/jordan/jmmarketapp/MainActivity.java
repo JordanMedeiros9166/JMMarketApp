@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String pass = intent.getStringExtra("pass");
 
 
+
         etUsername = (EditText) findViewById(R.id.etUsername);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         tvWelcome = (TextView) findViewById(R.id.tvWelcome);

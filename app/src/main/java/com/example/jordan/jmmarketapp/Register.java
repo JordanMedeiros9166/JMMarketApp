@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     Button btnRegister, btnCancel;
     EditText etEmail,etUsername,etPassword;
     TextView tvErrorLabel;
-    String username,pass,email;
+    String username,pass,email,token;
     int count;
     private AppDatabase db;
     private Account acc;
@@ -47,6 +47,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         btnRegister.setOnClickListener(this);
         btnCancel.setOnClickListener(this);
+
+        Intent intent = getIntent();
+        token = intent.getStringExtra("token");
     }
 
     /*  Register:
@@ -75,18 +78,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
                         List<Account> accounts = db.accountDao().getAllAccount();
                         if (accounts.size() == 0|| accounts.isEmpty() ){
-                            count = 1;
-                            db.accountDao().addAccount(new Account(count,username,pass,email));
+                            count = 0;
+                            db.accountDao().addAccount(new Account(count,username,pass,email,token ));
                             acc = db.accountDao().getAllAccount().get(count);
                             Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
                             finish();
                         }else{
-                            count = accounts.size() +1;
-                            int curr = count -1;
-                            db.accountDao().addAccount(new Account(count,username,pass,email));
-                            acc = db.accountDao().getAllAccount().get(curr);
+                            count = accounts.size();
+                            db.accountDao().addAccount(new Account(count,username,pass,email,token));
+                            acc = db.accountDao().getAllAccount().get(count);
                             Toast.makeText(this, String.valueOf(acc.getId()+ ", " + acc.getUsername()), Toast.LENGTH_SHORT).show();
-
                             finish();
                         }
                     }

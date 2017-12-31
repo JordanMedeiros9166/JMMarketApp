@@ -31,23 +31,28 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     Button btnLogin;
     EditText etUsername,etPassword;
     TextView tvRegisterLink,tvErrorLabel,tvToken;
-    String username,pass,key;
+    String username,pass,token;
+   // MyFirebaseInstanceIdService myfb;
     private AppDatabase db;
     private Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         db = AppDatabase.getAppDatabase(getApplicationContext());
-        String test = FirebaseInstanceId.getInstance().getToken();
-        Log.d("myfirebaseid", "Refreshed token: " + test);
+
+        //null if google play services out of date/ failed to get token
+        Log.d("myfirebasetoken", "Refreshed token: " + token);
+
         etUsername = (EditText) findViewById(R.id.etUsername);
         etPassword = (EditText) findViewById(R.id.etPassword);
         tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
         tvErrorLabel = (TextView) findViewById(R.id.tvErrorLabel);
         tvToken = (TextView) findViewById(R.id.tvToken);
         btnLogin = (Button) findViewById(R.id.btnLogin);
-        tvToken.setText(test);
+
+        tvToken.setText(token);
         btnLogin.setOnClickListener(this);
         tvRegisterLink.setOnClickListener(this);
     }
@@ -65,10 +70,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     List<Account> accountExist = db.accountDao().accountInfoMatch(username,pass);
                     if (accountExist.size()> 0){
                         Toast.makeText(getApplicationContext(), "Successfully logged in!" , Toast.LENGTH_LONG).show();
-
+                        token = FirebaseInstanceId.getInstance().getToken();
                         Intent mainIntent = new Intent(this, MainActivity.class);
                         mainIntent.putExtra("user", username);
                         mainIntent.putExtra("pass",pass);
+                        //testing purposes
+                        mainIntent.putExtra("token", token);
                         startActivity(mainIntent);
                     }else{
                         tvErrorLabel.setText("Check if username or password is incorrect.");
@@ -77,8 +84,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 }
                 break;
             case R.id.tvRegisterLink:
-
-                startActivity(new Intent(this,Register.class));
+                Intent regIntent = new Intent(this, Register.class);
+                token = FirebaseInstanceId.getInstance().getToken();
+                Log.d("Token", token);
+                if(token != null){
+                    regIntent.putExtra("token", token);
+                }
+                else{
+                    Log.d("ErrorToken", token);
+                }
+                startActivity(regIntent);
                 break;
         }
     }
