@@ -38,7 +38,7 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_listing);
-       db = AppDatabase.getAppDatabase(getApplicationContext());
+        db = AppDatabase.getAppDatabase(getApplicationContext());
 
         Intent intent = getIntent();
         String user = intent.getStringExtra("user");

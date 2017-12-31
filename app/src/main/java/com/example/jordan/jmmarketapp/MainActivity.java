@@ -68,6 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.navMesseges:
                 //make messeges page
+                Intent msgIntent = new Intent(this, Inbox.class);
+                msgIntent.putExtra("user", passUser);
+                startActivity(msgIntent);
                 return true;
             case R.id.navBrowse:
                 //show listings page

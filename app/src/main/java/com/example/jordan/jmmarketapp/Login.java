@@ -32,14 +32,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     EditText etUsername,etPassword;
     TextView tvRegisterLink,tvErrorLabel,tvToken;
     String username,pass,token;
-   // MyFirebaseInstanceIdService myfb;
     private AppDatabase db;
-    private Account acc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
         //null if google play services out of date/ failed to get token
@@ -66,7 +63,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 if(username.equals("")){
                     tvErrorLabel.setText("Invalid username.");
                 }else {
-
                     List<Account> accountExist = db.accountDao().accountInfoMatch(username,pass);
                     if (accountExist.size()> 0){
                         Toast.makeText(getApplicationContext(), "Successfully logged in!" , Toast.LENGTH_LONG).show();

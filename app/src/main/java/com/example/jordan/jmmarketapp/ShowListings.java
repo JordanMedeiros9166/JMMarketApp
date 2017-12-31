@@ -18,8 +18,7 @@ public class ShowListings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         db = AppDatabase.getAppDatabase(getApplicationContext());
         setContentView(R.layout.activity_show_listings);
-         v = (ListView) findViewById(R.id.listView1);
-
+        v = (ListView) findViewById(R.id.listView1);
         fetchInfo();
     }
 
