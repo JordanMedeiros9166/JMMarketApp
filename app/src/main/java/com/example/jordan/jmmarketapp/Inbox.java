@@ -27,7 +27,8 @@ public class Inbox extends AppCompatActivity {
 
 
             fetchInfo();
-        new UpdateInbox().execute();
+        UpdateInbox ad = new UpdateInbox(getApplicationContext(), currUser);
+        ad.execute();
     }
     public void fetchInfo(){
         List<Mail> m = db.mailDao().getMail(currUser);
@@ -43,6 +44,7 @@ public class Inbox extends AppCompatActivity {
             ArrayAdapter<String> items = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ar);
             inbox.setTextFilterEnabled(true);
             inbox.setAdapter(items);
+
         }
 
     }
