@@ -20,15 +20,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    Button btnLogout;
+    Button btnLogout,btnDownload;
     EditText etUsername;
-    TextView tvWelcome;
+    TextView tvWelcome,tvCitation;
+    ImageView ivDL;
     String passUser,passPass,myToken;
+    String DL_URL = "http://www.clker.com/cliparts/s/5/L/w/F/E/house-hi.png";
 
     private AppDatabase db;
     private Account acc;
@@ -43,16 +47,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
+
         etUsername = (EditText) findViewById(R.id.etUsername);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnDownload = (Button) findViewById(R.id.btnDownload);
+        ivDL = (ImageView) findViewById(R.id.imageDownload);
         tvWelcome = (TextView) findViewById(R.id.tvWelcome);
+        tvCitation = (TextView) findViewById(R.id.tvCitation);
 
         passPass = pass;
         passUser = user;
 
         tvWelcome.setText("Welcome, "+ user + "!");
         btnLogout.setOnClickListener(this);
-
+        btnDownload.setOnClickListener(this);
     }
 
     @Override
@@ -82,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return true;
             case R.id.navFriends:
                 //show friends list
+
+                startActivity(new Intent(this, OtherApps.class));
                 return true;
             case R.id.navAddListing:
                 Intent addIntent = new Intent(this, AddListing.class);
@@ -101,6 +111,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch(v.getId()){
             case R.id.btnLogout:
                 startActivity(new Intent(this,Login.class));
+                break;
+            case R.id.btnDownload:
+                Toast.makeText(getApplicationContext(), "Downloading... Aysnc/doInBackground image", Toast.LENGTH_LONG).show();
+                AsyncBackDL imgAsync = new AsyncBackDL(MainActivity.this,ivDL);
+                imgAsync.execute(DL_URL);
+                tvCitation.setText("Credit: " + DL_URL);
                 break;
         }
     }

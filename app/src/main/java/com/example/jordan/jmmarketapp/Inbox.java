@@ -32,10 +32,6 @@ public class Inbox extends AppCompatActivity implements View.OnClickListener{
         btnCompose.setOnClickListener(this);
 
         fetchInfo();
-
-        //Async/background task starts oncreate.
-        UpdateInbox ad = new UpdateInbox(getApplicationContext(), currUser);
-        ad.execute();
     }
 
     @Override
@@ -54,11 +50,11 @@ public class Inbox extends AppCompatActivity implements View.OnClickListener{
         List<Mail> m = db.mailDao().getMail(currUser);
         ArrayList<String> ar = new ArrayList<>();
         if (m.size() <= 0){
-            tvError.setText("No new messeges.");
+            tvError.setText("No new messages.");
         }
         else{
             for(Mail mail : m){
-                ar.add(""+ (String.format("From: %s  \nMessege: %s",
+                ar.add(""+ (String.format("From: %s  \nMessage: %s",
                         mail.getSender(), mail.getMessege())));
             }
             ArrayAdapter<String> items = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ar);

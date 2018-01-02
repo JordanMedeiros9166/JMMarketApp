@@ -28,12 +28,12 @@ import java.util.List;
 /**
  * clude the following:
  a. 1 tabview or listview and an adapter - Done
- b. 1 asynchronous task - Done - Counter(doesnt do much)
- c. TODO:1 input stream to download and display a file from the web
- d. TODO:2 intents (links to other apps)
+ b. 1 asynchronous task - Done - Downloads image
+ c. 1 input stream to download and display a file from the web - Done
+ d. 2 intents (links to other apps) SMS/9gag ( if installed)
  e. 3 buttons that save data to or retrieve data from the SQLlite database - Done
-    - Register, Add Listing, Inbox show, Send Mail
 
+    - Register, Add Listing, Inbox show, Send Mail
  f. 1 background service that runs when the app is closed
  g. 1 firebase connection to submit device tokens and receive push notifications -Done
     - Token gets created while registering, saved to DB with Mail.
