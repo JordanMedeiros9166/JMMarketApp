@@ -32,8 +32,7 @@ import java.util.List;
  c. TODO:1 input stream to download and display a file from the web
  d. TODO:2 intents (links to other apps)
  e. 3 buttons that save data to or retrieve data from the SQLlite database - Done
-    - Register, Add Listing, Inbox show
-    TODO: Send Mail button
+    - Register, Add Listing, Inbox show, Send Mail
  f. 1 background service that runs when the app is closed
  g. 1 firebase connection to submit device tokens and receive push notifications -Done
     - Token gets created while registering, saved to DB with Mail.
