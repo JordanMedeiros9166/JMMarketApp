@@ -28,7 +28,7 @@ public class OtherApps extends AppCompatActivity implements View.OnClickListener
             case R.id.btnSMS:
                 Uri uri = Uri.parse("smsto:2262185879");
                 Intent go = new Intent(Intent.ACTION_SENDTO, uri);
-                go.putExtra("sms_body","Testing Midterm SMS");
+                go.putExtra("sms_body","Testing  SMS");
                 startActivity(go);
                 break;
             case R.id.btn9gag:

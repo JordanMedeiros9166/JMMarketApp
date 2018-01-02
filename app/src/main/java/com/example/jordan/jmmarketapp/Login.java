@@ -55,6 +55,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         db = AppDatabase.getAppDatabase(getApplicationContext());
 
         //null if google play services out of date/ failed to get token
+        token = FirebaseInstanceId.getInstance().getToken();
         Log.d("myfirebasetoken", "Refreshed token: " + token);
 
         etUsername = (EditText) findViewById(R.id.etUsername);
@@ -98,14 +99,16 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             case R.id.tvRegisterLink:
                 Intent regIntent = new Intent(this, Register.class);
                 token = FirebaseInstanceId.getInstance().getToken();
-                Log.d("Token", token);
                 if(token != null){
                     regIntent.putExtra("token", token);
+                    Log.d("Token", token);
+                    startActivity(regIntent);
                 }
                 else{
-                    Log.d("ErrorToken", token);
+                    Toast.makeText(getApplicationContext(), "Waiting for Token....", Toast.LENGTH_LONG).show();
+                    Log.d("ErrorToken", "no token");
                 }
-                startActivity(regIntent);
+
                 break;
         }
     }

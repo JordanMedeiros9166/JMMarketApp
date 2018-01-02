@@ -27,7 +27,7 @@ public class ShowListings extends AppCompatActivity {
         List<House> h = db.houseDao().getAllHouse();
         ArrayList<String> ar = new ArrayList<>();
         for(House house : h){
-            ar.add(""+ (String.format("Name: %s  \nPrice: %s\nType: %s  \nLocation: %s , Id<testing>: %s \n",
+            ar.add(""+ (String.format("Name: %s  \nPrice: %s\nType: %s  \nLocation: %s , Id: %s \n",
                     house.getUsername(),house.getPrice(),house.getType(),house.getLocation(),house.getUserId())));
         }
         ArrayAdapter<String> items = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, ar);

@@ -94,8 +94,6 @@ public class AddListing extends AppCompatActivity implements View.OnClickListene
 
                     finish();
                 }
-              // db.houseDao().addHouse(new House(house.getUserId(),currUser,type,beds,baths,location,size,price));
-
 
                 Toast.makeText(getApplicationContext(), "Successfully listed!", Toast.LENGTH_LONG).show();
                 finish();
