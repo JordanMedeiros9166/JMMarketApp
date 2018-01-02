@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/navAccount"
-        android:title="My Profile"/>
+        android:title="My Token"/>
     <item android:id="@+id/navMesseges"
         android:title="Inbox"/>
     <item android:id="@+id/navBrowse"

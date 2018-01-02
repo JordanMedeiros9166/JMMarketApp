@@ -45,6 +45,7 @@ public class Inbox extends AppCompatActivity implements View.OnClickListener{
                 Intent compIntent = new Intent(this, CreateMail.class);
                 compIntent.putExtra("user", currUser);
                 startActivity(compIntent);
+                finish();
                 break;
         }
     }

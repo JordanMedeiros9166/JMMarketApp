@@ -33,12 +33,12 @@ import java.util.List;
  d. TODO:2 intents (links to other apps)
  e. 3 buttons that save data to or retrieve data from the SQLlite database - Done
     - Register, Add Listing, Inbox show, Send Mail
- 
+
  f. 1 background service that runs when the app is closed
  g. 1 firebase connection to submit device tokens and receive push notifications -Done
     - Token gets created while registering, saved to DB with Mail.
     - Push notifications work
-    TODO: Create custom push notification button
+     Create custom push notification button
  */
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
@@ -82,6 +82,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     if (accountExist.size()> 0){
                         Toast.makeText(getApplicationContext(), "Successfully logged in!" , Toast.LENGTH_LONG).show();
                         token = FirebaseInstanceId.getInstance().getToken();
+                        Log.d("Token", token);
                         Intent mainIntent = new Intent(this, MainActivity.class);
                         mainIntent.putExtra("user", username);
                         mainIntent.putExtra("pass",pass);

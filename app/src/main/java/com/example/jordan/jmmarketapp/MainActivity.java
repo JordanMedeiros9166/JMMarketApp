@@ -28,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogout;
     EditText etUsername;
     TextView tvWelcome;
-    String passUser,passPass = " ";
+    String passUser,passPass,myToken;
+
     private AppDatabase db;
     private Account acc;
 
@@ -48,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         passPass = pass;
         passUser = user;
-        tvWelcome.setText("Welcome, "+ user + " " + pass);
-        //db.accountDao().userLoggedInSwitch(user);
+
+        tvWelcome.setText("Welcome, "+ user + "!");
         btnLogout.setOnClickListener(this);
 
     }
@@ -64,7 +65,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.navAccount:
-                //make profile page
+                //make profile page turned into token page for final
+                Intent tokIntent = new Intent(this, DisplayToken.class);
+                tokIntent.putExtra("user", passUser);
+                startActivity(tokIntent);
                 return true;
             case R.id.navMesseges:
                 //make messeges page

@@ -33,7 +33,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".CreateMail"></activity>
+        <activity android:name=".CreateMail" />
+        <activity android:name=".DisplayToken"></activity>
     </application>
 
 </manifest>

@@ -42,6 +42,9 @@ public class CreateMail extends AppCompatActivity implements View.OnClickListene
                 db.mailDao().addMail(new Mail(sender, receiver, msgBody));
                 Toast.makeText(this, String.valueOf(" Messege sent to: " + receiver), Toast.LENGTH_SHORT).show();
                 finish();
+                Intent msgIntent = new Intent(this, Inbox.class);
+                msgIntent.putExtra("user", sender);
+                startActivity(msgIntent);
                 break;
             case R.id.btnCancel:
                 finish();

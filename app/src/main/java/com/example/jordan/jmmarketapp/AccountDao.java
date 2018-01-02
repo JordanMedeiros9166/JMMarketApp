@@ -36,6 +36,8 @@ public interface AccountDao {
     @Query("SELECT * FROM account WHERE username LIKE :username AND password LIKE :pass")
     List<Account> accountInfoMatch(String username,String pass);
 
+    @Query("SELECT id,token FROM account WHERE username LIKE :username")
+    List<Account> findTokenByUsername(String username);
 
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
